@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using MyLeetCode.BaseModels;
+using MyLeetCode.CSharp.BaseModels;
 
-namespace MyLeetCode;
+namespace MyLeetCode.CSharp;
 
 public class TwoSolution : BaseSolution
 {
