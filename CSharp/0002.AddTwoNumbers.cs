@@ -1,6 +1,6 @@
-using MyLeetCode.BaseModels;
+using MyLeetCode.CSharp.BaseModels;
 
-namespace MyLeetCode;
+namespace MyLeetCode.CSharp;
 
 public class AddTwoNumbersSolution : BaseSolution
 {

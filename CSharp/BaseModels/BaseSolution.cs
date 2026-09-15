@@ -1,4 +1,4 @@
-namespace MyLeetCode.BaseModels;
+namespace MyLeetCode.CSharp.BaseModels;
 
 public abstract class BaseSolution
 {
