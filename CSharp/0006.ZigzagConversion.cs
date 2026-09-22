@@ -12,8 +12,55 @@ public class ZigzagConversionSolution : BaseSolution
 
     public override string ProblemUrl => "https://leetcode.com/problems/zigzag-conversion/";
     public override Level ProblemLevel => Level.Medium;
-    public override SpaceComplexity SpaceComplexity { get; }
-    public override TimeComplexity TimeComplexity { get; }
+    public override SpaceComplexity SpaceComplexity => SpaceComplexity.LinearOrder;
+    public override TimeComplexity TimeComplexity => TimeComplexity.LinearOrder;
+
+    public string Convert(string s, int numRows)
+    {
+        if (numRows <= 1 || string.IsNullOrEmpty(s)) return s;
+        var sbArray = new List<StringBuilder>();
+        for (var i = 0; i < numRows; i++)
+        {
+            sbArray.Add(new StringBuilder());
+        }
+
+        var length = s.Length;
+        var rowIndex = 0;
+        var goingUp = true;
+        for (var i = 0; i < length; i++)
+        {
+            sbArray[rowIndex].Append(s[i]);
+            if (rowIndex == numRows - 1)
+            {
+                goingUp = false;
+                rowIndex--;
+            }
+            else if (rowIndex == 0)
+            {
+                goingUp = true;
+                rowIndex++;
+            }
+            else
+            {
+                if (goingUp)
+                {
+                    rowIndex++;
+                }
+                else
+                {
+                    rowIndex--;
+                }
+            }
+        }
+
+        var result = new StringBuilder();
+        for (var i = 0; i < numRows; i++)
+        {
+            result.Append(sbArray[i]);
+        }
+
+        return result.ToString();
+    }
 
     /// <summary>
     /// Over-simulation
@@ -23,7 +70,7 @@ public class ZigzagConversionSolution : BaseSolution
     /// <param name="s"></param>
     /// <param name="numRows"></param>
     /// <returns></returns>
-    public string Conver_v1(string s, int numRows)
+    public string Convert_v1(string s, int numRows)
     {
         if (numRows <= 1) return s;
         var charDic = new Dictionary<(int, int), int>();
