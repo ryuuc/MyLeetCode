@@ -8,10 +8,45 @@ public class ReverseIntegerSolution : BaseSolution
     public override string ProblemDescription => "Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.\n\nAssume the environment does not allow you to store 64-bit integers (signed or unsigned).\n\n \n\nExample 1:\n\nInput: x = 123\nOutput: 321\nExample 2:\n\nInput: x = -123\nOutput: -321\nExample 3:\n\nInput: x = 120\nOutput: 21\n \n\nConstraints:\n\n-231 <= x <= 231 - 1";
     public override string ProblemUrl => "https://leetcode.com/problems/reverse-integer";
     public override Level ProblemLevel => Level.Medium;
-    public override SpaceComplexity SpaceComplexity { get; }
-    public override TimeComplexity TimeComplexity { get; }
+    public override SpaceComplexity SpaceComplexity => SpaceComplexity.ConstantOrder;
+    public override TimeComplexity TimeComplexity => TimeComplexity.LogarithmicOrder; //O(log 10 |x|)
 
     public int Reverse(int x)
+    {
+        var rev = 0;
+        const int maxCheckValue = int.MaxValue / 10;
+        const int minCheckValue = int.MinValue / 10;
+        while (x != 0)
+        {
+            var pop = x % 10;
+            x /= 10;
+
+            //2147483647 
+            if (rev > maxCheckValue || (rev == maxCheckValue && pop > 7))
+            {
+                return 0;
+            }
+            //-2147483648
+            if (rev < minCheckValue || (rev == minCheckValue && pop < -8))
+            {
+                return 0;
+            }
+
+           
+            rev = rev * 10 + pop;
+        }
+
+        return rev;
+    }
+
+    /// <summary>
+    /// L 为数字位数
+    /// SpaceComplexity = O(L)
+    /// TimeComplexity = O(L)
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    public int Reverse_v1(int x)
     {
         if (x == int.MinValue) return 0;
         var isNegative = x < 0;
